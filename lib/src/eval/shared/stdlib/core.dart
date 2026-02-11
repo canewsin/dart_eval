@@ -146,6 +146,8 @@ class DartCorePlugin implements EvalPlugin {
       'double.negativeInfinity*g',
       $double.$negativeInfinity,
     );
+    runtime.registerBridgeFunc('dart:core', 'double.parse', $double.$parse);
+    runtime.registerBridgeFunc('dart:core', 'double.tryParse', $double.$tryParse);
     $StackTrace.configureForRuntime(runtime);
     $Error.configureForRuntime(runtime);
     $UnimplementedError.configureForRuntime(runtime);

@@ -598,5 +598,556 @@ void main() {
         double.infinity,
       );
     });
+
+    test('num.floor()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 3.7.floor();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3);
+    });
+
+    test('num.round()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 3.7.round();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 4);
+    });
+
+    test('num.truncate()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 3.7.truncate();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3);
+    });
+
+    test('num.clamp()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            num main() {
+              return 5.clamp(1, 3);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $num ? result.$value : result, 3);
+    });
+
+    test('num.remainder()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            num main() {
+              return 5.remainder(3);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $num ? result.$value : result, 2);
+    });
+
+    test('num.toStringAsFixed()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              final a = 3.14159;
+              return a.toStringAsFixed(2);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $String ? result.$reified : result, '3.14');
+    });
+
+    test('num.toStringAsExponential()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              final a = 1234;
+              return a.toStringAsExponential(2);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $String ? result.$reified : result, '1.23e+3');
+    });
+
+    test('num.toStringAsPrecision()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              final a = 0.00012;
+              return a.toStringAsPrecision(2);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $String ? result.$reified : result, '0.00012');
+    });
+
+    test('num.ceilToDouble()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return 3.2.ceilToDouble();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 4.0);
+    });
+
+    test('num.floorToDouble()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return 3.8.floorToDouble();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3.0);
+    });
+
+    test('num.roundToDouble()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return 3.4.roundToDouble();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3.0);
+    });
+
+    test('num.truncateToDouble()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return 3.7.truncateToDouble();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3.0);
+    });
+
+    test('num.isNaN', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              return double.nan.isNaN;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('num.isInfinite', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              return double.infinity.isInfinite;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('num.isNegative', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              final a = -5;
+              return a.isNegative;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('num.isFinite', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              final a = 3.14;
+              return a.isFinite;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('num.sign', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            void main() {
+              final a = -5;
+              print(a.sign);
+            }
+          ''',
+        },
+      });
+
+      expect(() {
+        runtime.executeLib('package:example/main.dart', 'main');
+      }, prints('-1\n'));
+    });
+
+    test('int.gcd()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 48.gcd(18);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 6);
+    });
+
+    test('int.modPow()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 2.modPow(10, 1000);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 24);
+    });
+
+    test('int.modInverse()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 3.modInverse(11);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 4);
+    });
+
+    test('int.toSigned()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return 0xFF.toSigned(8);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), -1);
+    });
+
+    test('int.toUnsigned()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return (-1).toUnsigned(8);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 255);
+    });
+
+    test('int.isEven', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              final a = 4;
+              return a.isEven;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('int.isOdd', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              final a = 5;
+              return a.isOdd;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('int.bitLength', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              final a = 7;
+              return a.bitLength;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3);
+    });
+
+    test('int.sign', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              final a = 5;
+              return a.sign;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 1);
+    });
+
+    test('double.parse()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return double.parse('3.14');
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 3.14);
+    });
+
+    test('double.tryParse()', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double? main() {
+              final result = double.tryParse('3.14');
+              if (result != null) {
+                return result;
+              }
+              return null;
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $double ? result.$value : result, 3.14);
+    });
+
+    test('double.tryParse() returns null for invalid input', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            bool main() {
+              final result = double.tryParse('invalid');
+              return result == null;
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), true);
+    });
+
+    test('double.parse() with onError callback', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            double main() {
+              return double.parse('invalid', (source) => 42.0);
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), 42.0);
+    });
+
+    test('double.parse() throws FormatException without onError', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              try {
+                double.parse('invalid');
+                return 'no exception';
+              } catch (e) {
+                return 'caught exception';
+              }
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $String ? result.$reified : result, 'caught exception');
+    });
+
+    test('num.floor() with negative number', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return (-3.7).floor();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), -4);
+    });
+
+    test('num.ceil() with negative number', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return (-3.7).ceil();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), -3);
+    });
+
+    test('num.round() with negative number', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return (-3.7).round();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), -4);
+    });
+
+    test('num.truncate() with negative number', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            int main() {
+              return (-3.7).truncate();
+            }
+          ''',
+        },
+      });
+
+      expect(runtime.executeLib('package:example/main.dart', 'main'), -3);
+    });
+
+    test('num.toStringAsExponential() without arguments', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              return 123.456.toStringAsExponential();
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      final stringResult = result is $String ? result.$reified : result;
+      expect(stringResult, contains('e'));
+      expect(stringResult, contains('1.23456'));
+    });
+
+    test('num.toStringAsExponential() with fractionDigits parameter', () {
+      final runtime = compiler.compileWriteAndLoad({
+        'example': {
+          'main.dart': '''
+            String main() {
+              return 123.456.toStringAsExponential(2);
+            }
+          ''',
+        },
+      });
+
+      final result = runtime.executeLib('package:example/main.dart', 'main');
+      expect(result is $String ? result.$reified : result, '1.23e+2');
+    });
   });
 }

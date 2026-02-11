@@ -108,3 +108,6 @@ fabric.properties
 
 # Executables
 *.exe
+
+# macOS
+.DS_Store

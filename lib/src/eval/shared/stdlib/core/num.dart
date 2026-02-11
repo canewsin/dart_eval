@@ -91,6 +91,128 @@ class $num<T extends num> implements $Instance {
         ),
         isStatic: false,
       ),
+      'floor': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'round': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'truncate': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'clamp': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num)),
+          params: [
+            BridgeParameter(
+              'lower',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num)),
+              false,
+            ),
+            BridgeParameter(
+              'upper',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'remainder': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num)),
+          params: [
+            BridgeParameter(
+              'other',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.num)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'toStringAsFixed': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+          params: [
+            BridgeParameter(
+              'fractionDigits',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'toStringAsExponential': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+          params: [
+            BridgeParameter(
+              'fractionDigits',
+              BridgeTypeAnnotation(
+                BridgeTypeRef(CoreTypes.int),
+                nullable: true,
+              ),
+              true,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'toStringAsPrecision': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string)),
+          params: [
+            BridgeParameter(
+              'precision',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'ceilToDouble': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'floorToDouble': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'roundToDouble': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'truncateToDouble': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.double)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
     },
     getters: {},
     setters: {},
@@ -176,6 +298,40 @@ class $num<T extends num> implements $Instance {
         return __ceil;
       case 'abs':
         return __abs;
+      case 'floor':
+        return __floor;
+      case 'round':
+        return __round;
+      case 'truncate':
+        return __truncate;
+      case 'clamp':
+        return __clamp;
+      case 'remainder':
+        return __remainder;
+      case 'toStringAsFixed':
+        return __toStringAsFixed;
+      case 'toStringAsExponential':
+        return __toStringAsExponential;
+      case 'toStringAsPrecision':
+        return __toStringAsPrecision;
+      case 'ceilToDouble':
+        return __ceilToDouble;
+      case 'floorToDouble':
+        return __floorToDouble;
+      case 'roundToDouble':
+        return __roundToDouble;
+      case 'truncateToDouble':
+        return __truncateToDouble;
+      case 'isNaN':
+        return $bool($value.isNaN);
+      case 'isInfinite':
+        return $bool($value.isInfinite);
+      case 'isNegative':
+        return $bool($value.isNegative);
+      case 'isFinite':
+        return $bool($value.isFinite);
+      case 'sign':
+        return $num($value.sign);
     }
     return _superclass.$getProperty(runtime, identifier);
   }
@@ -355,6 +511,108 @@ class $num<T extends num> implements $Instance {
     return $int(evalResult);
   }
 
+  static const $Function __floor = $Function(_floor);
+  static $Value? _floor(Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).floor();
+    return $int(evalResult);
+  }
+
+  static const $Function __round = $Function(_round);
+  static $Value? _round(Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).round();
+    return $int(evalResult);
+  }
+
+  static const $Function __truncate = $Function(_truncate);
+  static $Value? _truncate(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).truncate();
+    return $int(evalResult);
+  }
+
+  static const $Function __clamp = $Function(_clamp);
+  static $Value? _clamp(Runtime runtime, $Value? target, List<$Value?> args) {
+    final lower = args[0]!.$value as num;
+    final upper = args[1]!.$value as num;
+    final evalResult = (target!.$value as num).clamp(lower, upper);
+    if (evalResult is int) {
+      return $int(evalResult);
+    }
+    if (evalResult is double) {
+      return $double(evalResult);
+    }
+    throw UnimplementedError();
+  }
+
+  static const $Function __remainder = $Function(_remainder);
+  static $Value? _remainder(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final other = args[0]!.$value as num;
+    final evalResult = (target!.$value as num).remainder(other);
+    if (evalResult is int) {
+      return $int(evalResult);
+    }
+    if (evalResult is double) {
+      return $double(evalResult);
+    }
+    throw UnimplementedError();
+  }
+
+  static const $Function __toStringAsFixed = $Function(_toStringAsFixed);
+  static $Value? _toStringAsFixed(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final fractionDigits = args[0]!.$value as int;
+    final evalResult = (target!.$value as num).toStringAsFixed(fractionDigits);
+    return $String(evalResult);
+  }
+
+  static const $Function __toStringAsExponential =
+      $Function(_toStringAsExponential);
+  static $Value? _toStringAsExponential(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final fractionDigits = args[0]?.$value as int?;
+    final evalResult =
+        (target!.$value as num).toStringAsExponential(fractionDigits);
+    return $String(evalResult);
+  }
+
+  static const $Function __toStringAsPrecision =
+      $Function(_toStringAsPrecision);
+  static $Value? _toStringAsPrecision(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final precision = args[0]!.$value as int;
+    final evalResult = (target!.$value as num).toStringAsPrecision(precision);
+    return $String(evalResult);
+  }
+
+  static const $Function __ceilToDouble = $Function(_ceilToDouble);
+  static $Value? _ceilToDouble(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).ceilToDouble();
+    return $double(evalResult);
+  }
+
+  static const $Function __floorToDouble = $Function(_floorToDouble);
+  static $Value? _floorToDouble(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).floorToDouble();
+    return $double(evalResult);
+  }
+
+  static const $Function __roundToDouble = $Function(_roundToDouble);
+  static $Value? _roundToDouble(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).roundToDouble();
+    return $double(evalResult);
+  }
+
+  static const $Function __truncateToDouble = $Function(_truncateToDouble);
+  static $Value? _truncateToDouble(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as num).truncateToDouble();
+    return $double(evalResult);
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -438,6 +696,83 @@ class $int extends $num<int> {
           namedParams: [],
         ),
       ),
+      'abs': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [],
+        ),
+        isStatic: false,
+      ),
+      'gcd': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [
+            BridgeParameter(
+              'other',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'modPow': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [
+            BridgeParameter(
+              'exponent',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+            BridgeParameter(
+              'modulus',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'modInverse': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [
+            BridgeParameter(
+              'modulus',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'toSigned': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [
+            BridgeParameter(
+              'width',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
+      'toUnsigned': BridgeMethodDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+          params: [
+            BridgeParameter(
+              'width',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int)),
+              false,
+            ),
+          ],
+        ),
+        isStatic: false,
+      ),
     },
     getters: {},
     setters: {},
@@ -501,6 +836,26 @@ class $int extends $num<int> {
         return __bitwiseXor;
       case '~/':
         return __truncatediv;
+      case 'abs':
+        return __absInt;
+      case 'gcd':
+        return __gcd;
+      case 'modPow':
+        return __modPow;
+      case 'modInverse':
+        return __modInverse;
+      case 'toSigned':
+        return __toSigned;
+      case 'toUnsigned':
+        return __toUnsigned;
+      case 'isEven':
+        return $bool($value.isEven);
+      case 'isOdd':
+        return $bool($value.isOdd);
+      case 'bitLength':
+        return $int($value.bitLength);
+      case 'sign':
+        return $int($value.sign);
     }
     return super.$getProperty(runtime, identifier);
   }
@@ -610,6 +965,51 @@ class $int extends $num<int> {
 
     return $int(evalResult);
   }
+
+  static const $Function __absInt = $Function(_absInt);
+  static $Value? _absInt(Runtime runtime, $Value? target, List<$Value?> args) {
+    final evalResult = (target!.$value as int).abs();
+    return $int(evalResult);
+  }
+
+  static const $Function __gcd = $Function(_gcd);
+  static $Value? _gcd(Runtime runtime, $Value? target, List<$Value?> args) {
+    final other = args[0]!.$value as int;
+    final evalResult = (target!.$value as int).gcd(other);
+    return $int(evalResult);
+  }
+
+  static const $Function __modPow = $Function(_modPow);
+  static $Value? _modPow(Runtime runtime, $Value? target, List<$Value?> args) {
+    final exponent = args[0]!.$value as int;
+    final modulus = args[1]!.$value as int;
+    final evalResult = (target!.$value as int).modPow(exponent, modulus);
+    return $int(evalResult);
+  }
+
+  static const $Function __modInverse = $Function(_modInverse);
+  static $Value? _modInverse(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final modulus = args[0]!.$value as int;
+    final evalResult = (target!.$value as int).modInverse(modulus);
+    return $int(evalResult);
+  }
+
+  static const $Function __toSigned = $Function(_toSigned);
+  static $Value? _toSigned(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final width = args[0]!.$value as int;
+    final evalResult = (target!.$value as int).toSigned(width);
+    return $int(evalResult);
+  }
+
+  static const $Function __toUnsigned = $Function(_toUnsigned);
+  static $Value? _toUnsigned(
+      Runtime runtime, $Value? target, List<$Value?> args) {
+    final width = args[0]!.$value as int;
+    final evalResult = (target!.$value as int).toUnsigned(width);
+    return $int(evalResult);
+  }
 }
 
 /// dart_eval wrapper for [double]
@@ -711,6 +1111,34 @@ class $double extends $num<double> {
     List<$Value?> args,
   ) {
     return $double(double.negativeInfinity);
+  }
+
+  static $double? $parse(Runtime runtime, $Value? target, List<$Value?> args) {
+    final source = args[0]!.$value as String;
+    final onError = args[1] as EvalCallable?;
+    final double result;
+    try {
+      result = double.parse(source);
+    } on FormatException catch (e) {
+      if (onError != null) {
+        final errorResult = onError.call(runtime, null, [$String(source)]);
+        if (errorResult != null) {
+          return errorResult as $double?;
+        }
+      }
+      runtime.$throw($FormatException.wrap(e));
+      return null;
+    }
+    return $double(result);
+  }
+
+  static $Value $tryParse(Runtime runtime, $Value? target, List<$Value?> args) {
+    final source = args[0]!.$value as String;
+    final result = double.tryParse(source);
+    if (result == null) {
+      return $null();
+    }
+    return $double(result);
   }
 
   @override
